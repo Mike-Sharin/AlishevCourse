@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:musicPlayer.properties"/>
+
+    <bean id="musicClassic"
+          class="ru.sharinm.springexample.ClassicMusic">
+    </bean>
+    <bean id="musicRap"
+          class="ru.sharinm.springexample.RapMusic">
+    </bean>
+    <bean id="musicRock"
+          class="ru.sharinm.springexample.RockMusic">
+    </bean>
+
+    <bean id="musicPlayer"
+          class="ru.sharinm.springexample.MusicPlayer">
+        <constructor-arg ref="musicRock"/>
+    </bean>
+
+    <bean id="musicPlayer1"
+          class="ru.sharinm.springexample.MusicPlayer">
+        <property name="music" ref="musicClassic"/>
+        <property name="name" value="${musicPlayer.name}"/>
+        <property name="volume" value="${musicPlayer.volume}"/>
+    </bean>
+
+    <bean id="musicPlayer2"
+          class="ru.sharinm.springexample.MusicPlayer">
+        <property name="musicList">
+            <list>
+                <ref bean="musicClassic" />
+                <ref bean="musicRock" />
+                <ref bean="musicRap" />
+            </list>
+        </property>
+    </bean>
+</beans>
